@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Abhi on 14-08-2016.
  */
-public class MathQuiz implements Quiz,Serializable {
+class MathQuiz implements Quiz,Serializable {
     private String ans;
     private String question;
     private int attempt;

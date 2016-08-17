@@ -63,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
         trueButton.setOnClickListener(new MyAnswerListener(TRUE,quiz,getApplicationContext()));
         falseButton.setOnClickListener(new MyAnswerListener(FALSE,quiz,getApplicationContext()));
 
-        Log.i(TAG, "Inside onSaveInstance");
+        Log.i(TAG, "Inside OnCreate");
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG, "Inside onSaveInstance");
+        Log.i(TAG, "Inside OnSaveInstance");
         savedInstanceState.putSerializable(QUIZ,(MathQuiz)quiz);
         savedInstanceState.putInt(SCORE,score);
     }
@@ -91,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG,"Inside OnREsume");
+        Log.d(TAG,"Inside OnResume");
 
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(TAG, "Inside OnSTop");
+        Log.d(TAG, "Inside OnStop");
     }
 
     @Override

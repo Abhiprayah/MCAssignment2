@@ -1,14 +1,12 @@
 package com.example.abhi.quizapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
-import android.view.View;
 /**
  * Created by Abhi on 16-08-2016.
  */
-public class MyAnswerListener implements View.OnClickListener {
+class MyAnswerListener implements View.OnClickListener {
     private final String givenAnswer;
     private final Quiz quiz;
     private final Context context;
