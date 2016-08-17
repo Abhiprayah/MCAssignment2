@@ -11,14 +11,18 @@ public class MainActivity extends AppCompatActivity {
     private static final String TRUE = "True";
     private static final String FALSE = "False";
     private static final String QUIZ = "Quiz";
-    Quiz quiz;
-    private TextView questionTextView;
     private static final String TAG = "QuizApp";
+    private static final String SCORE = "Score";
+    private Quiz quiz;
+    private int score = 0;
+    private TextView questionTextView;
+
 
     private View.OnClickListener nextButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            questionTextView.setText(quiz.generateQuestion());
+            quiz.generateQuestion();
+            questionTextView.setText(quiz.getQuestion());
         }
     };
 
@@ -30,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             quiz = new MathQuiz();
+            quiz.generateQuestion();
         }
         else{
             quiz = (MathQuiz)savedInstanceState.getSerializable("Quiz");
         }
+
+        questionTextView = (TextView)findViewById(R.id.Question);
+        questionTextView.setText(quiz.getQuestion());
 
         Button trueButton;
         Button falseButton;
@@ -52,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "Inside onSaveInstance");
-
         savedInstanceState.putSerializable(QUIZ,(MathQuiz)quiz);
     }
 
@@ -61,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onStart();
         Log.d(TAG, "Inside OnStart");
-        questionTextView = (TextView)findViewById(R.id.Question);
-        questionTextView.setText(quiz.generateQuestion());
     }
 
     @Override

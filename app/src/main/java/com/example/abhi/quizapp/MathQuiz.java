@@ -7,12 +7,16 @@ import java.io.Serializable;
  */
 public class MathQuiz implements Quiz,Serializable {
     private String ans = "";
+    private String question = "";
 
-    public String generateQuestion() {
+    public void generateQuestion() {
         int num = (int)(Math.random() * 1000) + 1;
         if(isPrime(num)) ans = "True";
         else ans = "False";
-        return ("Is " + num + " a prime number?");
+        question = "Is " + num + " a prime number?";
+    }
+    public String getQuestion(){
+        return question;
     }
     public boolean checkAnswer(String answer){
         return ans.equals(answer);
