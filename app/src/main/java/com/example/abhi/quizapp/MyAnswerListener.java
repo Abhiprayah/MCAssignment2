@@ -14,7 +14,7 @@ public class MyAnswerListener implements View.OnClickListener {
     private final Context context;
     @Override
     public void onClick(View view) {
-        if(quiz.checkAnswer(givenAnswer) == true){
+        if(quiz.checkAnswer(givenAnswer)){
             Toast.makeText(context,"Correct Answer", Toast.LENGTH_SHORT).show();
         }
         else{

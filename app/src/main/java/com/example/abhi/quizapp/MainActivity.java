@@ -14,9 +14,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "QuizApp";
     private static final String SCORE = "Score";
     private Quiz quiz;
-    private int score = 0;
-    private TextView questionTextView;
-
+    private static int score = 0;
+    private static TextView questionTextView;
+    private static TextView scoreTextView;
 
     private View.OnClickListener nextButtonListener = new View.OnClickListener() {
         @Override
@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
             questionTextView.setText(quiz.getQuestion());
         }
     };
+
+    static void updateScore(){
+        score+=1;
+        String temp = "Score : " + score;
+        scoreTextView.setText(temp);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +43,15 @@ public class MainActivity extends AppCompatActivity {
             quiz.generateQuestion();
         }
         else{
-            quiz = (MathQuiz)savedInstanceState.getSerializable("Quiz");
+            quiz = (MathQuiz)savedInstanceState.getSerializable(QUIZ);
+            score = savedInstanceState.getInt(SCORE);
         }
 
         questionTextView = (TextView)findViewById(R.id.Question);
         questionTextView.setText(quiz.getQuestion());
+        scoreTextView = (TextView)findViewById(R.id.Score);
+        String temp = "Score : " + score;
+        scoreTextView.setText(temp);
 
         Button trueButton;
         Button falseButton;
@@ -61,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "Inside onSaveInstance");
         savedInstanceState.putSerializable(QUIZ,(MathQuiz)quiz);
+        savedInstanceState.putInt(SCORE,score);
     }
 
     @Override

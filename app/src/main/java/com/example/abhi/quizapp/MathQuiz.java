@@ -6,10 +6,12 @@ import java.io.Serializable;
  * Created by Abhi on 14-08-2016.
  */
 public class MathQuiz implements Quiz,Serializable {
-    private String ans = "";
-    private String question = "";
+    private String ans;
+    private String question;
+    private int attempt;
 
     public void generateQuestion() {
+        attempt = 0;
         int num = (int)(Math.random() * 1000) + 1;
         if(isPrime(num)) ans = "True";
         else ans = "False";
@@ -19,7 +21,10 @@ public class MathQuiz implements Quiz,Serializable {
         return question;
     }
     public boolean checkAnswer(String answer){
-        return ans.equals(answer);
+        boolean result = ans.equals(answer);
+        attempt++;
+        if(attempt == 1 && result) MainActivity.updateScore();
+        return result;
     }
     private boolean isPrime(int num)
     {
