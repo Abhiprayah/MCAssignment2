@@ -25,6 +25,7 @@ public class MathQuiz implements Quiz,Serializable {
     {
         if(num == 1) return false;
         if(num == 2) return true;
+        if((num % 2) == 0) return false;
         boolean isPrime = true;
         for(int i = 3; i <= (int)(Math.sqrt(num)) + 1; i += 2){
             if(num % i == 0){
