@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TRUE = "True";
@@ -14,18 +15,24 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "QuizApp";
     private static final String SCORE = "Score";
     private Quiz quiz;
-    private static int score = 0;
+    private static int score = 0;   //Player's Score - Increments only if correct on first attempt.
     private static TextView questionTextView;
     private static TextView scoreTextView;
 
+    //Listener for next button - generates a new question only if previous one has been attempted
     private View.OnClickListener nextButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if(quiz.getAttempts() == 0){
+                Toast.makeText(getApplicationContext(),"Attempt the question first", Toast.LENGTH_SHORT).show();
+                return;
+            }
             quiz.generateQuestion();
             questionTextView.setText(quiz.getQuestion());
         }
     };
 
+    //method for updating the player's score
     static void updateScore(){
         score+=1;
         String temp = "Score : " + score;
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Generate question if first time else load question and score
         if(savedInstanceState == null){
             quiz = new MathQuiz();
             quiz.generateQuestion();
@@ -47,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
             score = savedInstanceState.getInt(SCORE);
         }
 
+        //get objects of required Textview's and set their text
         questionTextView = (TextView)findViewById(R.id.Question);
         questionTextView.setText(quiz.getQuestion());
         scoreTextView = (TextView)findViewById(R.id.Score);
         String temp = "Score : " + score;
         scoreTextView.setText(temp);
 
+        //get buttons and associate the appropriate listener with them
         Button trueButton;
         Button falseButton;
         Button nextButton;
@@ -66,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Inside OnCreate");
     }
 
+    //overridden methods for easier debugging
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "Inside OnSaveInstance");
+
+        //save the required information
         savedInstanceState.putSerializable(QUIZ,(MathQuiz)quiz);
         savedInstanceState.putInt(SCORE,score);
     }
