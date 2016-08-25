@@ -45,18 +45,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        questionTextView = (TextView)findViewById(R.id.Question);
         //Generate question if first time else load question and score
         if(savedInstanceState == null){
             quiz = new MathQuiz();
             quiz.generateQuestion();
         }
         else{
-            quiz = (MathQuiz)savedInstanceState.getSerializable(QUIZ);
+            quiz = (MathQuiz)(savedInstanceState.getSerializable(QUIZ));
             score = savedInstanceState.getInt(SCORE);
         }
 
         //get objects of required Textview's and set their text
-        questionTextView = (TextView)findViewById(R.id.Question);
         questionTextView.setText(quiz.getQuestion());
         scoreTextView = (TextView)findViewById(R.id.Score);
         String temp = "Score : " + score;
