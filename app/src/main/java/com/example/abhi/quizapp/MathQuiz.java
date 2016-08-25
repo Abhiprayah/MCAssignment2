@@ -12,16 +12,21 @@ class MathQuiz implements Quiz,Serializable {
     private String ans;
     private String question;
     private int attempt; //Number of attempts at the current question
+    private int num;
 
     /**
      * generateQuestion does most of the work for initialing a new question
      */
     public void generateQuestion() {
         attempt = 0;
-        int num = (int)(Math.random() * 1000) + 1;
+        num = (int)(Math.random() * 1000) + 1;
         if(isPrime(num)) ans = "True";
         else ans = "False";
         question = "Is " + num + " a prime number?";
+    }
+
+    public int questionAsked(){
+        return num;
     }
 
     /**

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_answer">Show Answer</string>
+    <string name="take_hint">Take Hint</string>
+    <string name="hint">Take Hint</string>
+    <string name="cheat">Cheat</string>
+</resources>

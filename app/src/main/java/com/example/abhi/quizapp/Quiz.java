@@ -9,4 +9,5 @@ interface Quiz{
     boolean checkAnswer(String ans);
     String getQuestion();
     int getAttempts();
+    int questionAsked();
 }

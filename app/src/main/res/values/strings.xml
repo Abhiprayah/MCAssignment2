@@ -3,4 +3,8 @@
     <string name="True">True</string>
     <string name="False">False</string>
     <string name="Next">Next</string>
+    <string name="show_answer">Show Answer</string>
+    <string name="take_hint">Take Hint</string>
+    <string name="hint">Take Hint</string>
+    <string name="cheat">Cheat</string>
 </resources>
