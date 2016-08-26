@@ -16,14 +16,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String QUIZ = "Quiz";
     private static final String TAG = "QuizApp";
     private static final String SCORE = "Score";
+    //Tags passed to intent
     private static final String  QUESTION_ASKED = "com.example.abhi.quizapp.QUESTION_ASKED";
     private static final String HINT_TAKEN_STATUS = "com.example.abhi.quizapp.HINT_TAKEN_STATUS";
     private static final String CHEAT_STATUS = "com.example.abhi.quizapp.CHEAT_STATUS";
+    //return results
     private static final int REQUEST_RESULT_FROM_CHEAT_ACTIVITY = 100;
     private static final int REQUEST_RESULT_FROM_HINT_ACTIVITY = 101;
+    //tags for extra information
     private static final String CHEATED = "CHEATED";
     private static final String HINT_TAKEN = "HINT_TAKEN";
-    private static final int MY_DURATION = 1;
 
     private static boolean cheated;
     private static boolean hint_taken;
@@ -33,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private static TextView scoreTextView;
 
     //Listener for next button - generates a new question only if previous one has been attempted
-    private View.OnClickListener nextButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener nextButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if(quiz.getAttempts() == 0){
                 Toast.makeText(getApplicationContext(),"Attempt the question first", Toast.LENGTH_SHORT).show();
                 return;
             }
+            //reset question and related state
             quiz.generateQuestion();
             cheated = false;
             hint_taken = false;
@@ -47,28 +50,30 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener hintButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener hintButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent hintIntent = new Intent(getApplicationContext(),HintActivity.class);
-            hintIntent.putExtra(QUESTION_ASKED, quiz.getQuestion());
+            //create intent for hint activity
+            final Intent hintIntent = new Intent(getApplicationContext(),HintActivity.class);
+            hintIntent.putExtra(QUESTION_ASKED, quiz.questionAsked());
             startActivityForResult(hintIntent, REQUEST_RESULT_FROM_HINT_ACTIVITY);
         }
     };
 
-    private View.OnClickListener cheatButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener cheatButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent cheatIntent = new Intent(getApplicationContext(),CheatActivity.class);
-            cheatIntent.putExtra(QUESTION_ASKED, quiz.getQuestion());
+            //create intent for cheat activity
+            final Intent cheatIntent = new Intent(getApplicationContext(),CheatActivity.class);
+            cheatIntent.putExtra(QUESTION_ASKED, quiz.questionAsked());
             startActivityForResult(cheatIntent, REQUEST_RESULT_FROM_CHEAT_ACTIVITY);
         }
     };
 
     //method for updating the player's score
     static void updateScore(){
-        if(!cheated && !hint_taken) score+=2;
-        else if(!cheated) score+=1;
+        if(!cheated && !hint_taken) score+=2; //if correct on first attempt without cheating and taking hint
+        else if(!cheated) score+=1; //if correct on first attempt without cheating
         else score+=0;
         String temp = "Score : " + score;
         scoreTextView.setText(temp);
@@ -135,16 +140,18 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putBoolean(CHEATED, cheated);
     }
 
+    //when return is made from an intent activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-
+        //check if user cheated
         if(requestCode == REQUEST_RESULT_FROM_CHEAT_ACTIVITY){
             if(resultCode == Activity.RESULT_OK){
                 if(data.getBooleanExtra(CHEAT_STATUS, false)) cheated = true;
                 Toast.makeText(getApplicationContext(),"You have cheated", Toast.LENGTH_SHORT).show();
             }
         }
+        //check if user took hint
         else if(requestCode == REQUEST_RESULT_FROM_HINT_ACTIVITY){
             if(resultCode == Activity.RESULT_OK){
                 if(data.getBooleanExtra(HINT_TAKEN_STATUS, false)) hint_taken = true;

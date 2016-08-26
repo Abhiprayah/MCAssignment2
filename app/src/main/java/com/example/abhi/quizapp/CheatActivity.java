@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
+    //intent tags
     private static final String  QUESTION_ASKED = "com.example.abhi.quizapp.QUESTION_ASKED";
     private static final String CHEAT_STATUS = "com.example.abhi.quizapp.CHEAT_STATUS";
+    //tags for saving in Bundle onSaveInstance
     private static final String NUMBER = "NUMBER";
     private static final String CHEATED = "CHEATED";
     private static final String RESULT = "RESULT";
@@ -20,14 +22,16 @@ public class CheatActivity extends AppCompatActivity {
     private boolean hasCheated = false;
     private String result = "";
 
-    private View.OnClickListener cheatButtonListener = new View.OnClickListener(){
+    private final View.OnClickListener cheatButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
+            //user has cheated
             hasCheated = true;
+            //show the answer
             if(isPrime(number)){
-                result = "IS PRIME";
+                result = number + " IS PRIME";
             }
-            else result="IS NOT PRIME";
+            else result= number + " IS NOT PRIME";
             answer.setText(result);
         }
     };
@@ -40,16 +44,19 @@ public class CheatActivity extends AppCompatActivity {
         cheatButton = (Button)findViewById(R.id.cheatButton);
         cheatButton.setOnClickListener(cheatButtonListener);
         answer = (TextView)findViewById(R.id.cheatTextView);
-        if(savedInstanceState == null) {
-            Intent calledIntent = getIntent();
-            number = calledIntent.getIntExtra(QUESTION_ASKED, 0);
-        }
-        else{
+
+        if(savedInstanceState != null) {
             number = savedInstanceState.getInt(NUMBER);
             result = savedInstanceState.getString(RESULT);
             answer.setText(result);
             hasCheated = savedInstanceState.getBoolean(CHEATED);
         }
+        else {
+            final Intent calledIntent = this.getIntent();
+            number = calledIntent.getIntExtra(QUESTION_ASKED, 0);
+            answer.setText(result);
+        }
+
     }
 
     @Override
@@ -59,6 +66,8 @@ public class CheatActivity extends AppCompatActivity {
         savedInstanceState.putBoolean(CHEATED, hasCheated);
         savedInstanceState.putString(RESULT, result);
     }
+
+    //utility function to check whether a number is prime
     private boolean isPrime(int num)
     {
         if(num == 1) return false;
@@ -76,10 +85,10 @@ public class CheatActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(CHEAT_STATUS,hasCheated);
-        setResult(Activity.RESULT_OK, returnIntent);
-        finish();
+        final Intent returnIntent = new Intent();
+        returnIntent.putExtra(CHEAT_STATUS,hasCheated); //put whether the user has cheated or not
+        setResult(Activity.RESULT_OK, returnIntent); //set result to OK
+        finish(); //return the intent
         super.onBackPressed();
     }
 }

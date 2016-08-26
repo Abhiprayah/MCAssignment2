@@ -86,8 +86,9 @@
                 android:id="@+id/hintActivityButton"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
-                android:textColor="#fee401"
-                android:background="?android:attr/selectableItemBackground" />
+                android:textColor="#fec301"
+                android:background="?android:attr/selectableItemBackground"
+                android:textSize="16sp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -97,7 +98,8 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:textColor="#e91515" />
+                android:textColor="#e91515"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
