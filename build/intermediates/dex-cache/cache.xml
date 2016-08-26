@@ -40,14 +40,14 @@
         jar="C:\Users\Abhi\AndroidStudioProjects\QuizApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="a1a1364ce64d598adef9186b46da01d78aa61b8a">
+        sha1="ebdc63b156d00d1f5b8540aa50805cbc50d0a1f8">
         <dex dex="C:\Users\Abhi\AndroidStudioProjects\QuizApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_2043c6d1695853f6210720406c57fb6b84831467\classes.dex" />
     </item>
     <item
         jar="C:\Users\Abhi\AndroidStudioProjects\QuizApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="1b861f64e2beb38dd42685dd59920412d7303368">
+        sha1="cb60bd3276acb1ebdf0150a2de2e21013834cdd7">
         <dex dex="C:\Users\Abhi\AndroidStudioProjects\QuizApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_69c57996a89f6c9aaca2788c5115e4538918af67\classes.dex" />
     </item>
     <item
